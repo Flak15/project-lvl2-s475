@@ -1,0 +1,29 @@
+{
+  "name": "gendiff-15",
+  "version": "1.0.0",
+  "description": "Second Hexlet Project",
+  "bin": "dist/bin/gendiff.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel-node": "babel-node",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "eslint": "eslint",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Flak",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "*",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.2",
+    "babel-preset-env": "*",
+    "babel-preset-stage-0": "*",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.9"
+  }
+}
