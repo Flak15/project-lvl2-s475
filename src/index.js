@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 
 import program from 'commander';
 
@@ -15,3 +15,4 @@ if (program.peppers) console.log('  - peppers');
 if (program.pineapple) console.log('  - pineapple');
 if (program.bbqSauce) console.log('  - bbq');
 console.log('  - %s cheese', program.cheese);
+//test

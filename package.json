@@ -1,8 +1,10 @@
 {
   "name": "gendiff-15",
-  "version": "1.0.0",
+  "version": "1.0.22",
   "description": "Second Hexlet Project",
-  "bin": "dist/bin/gendiff.js",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,6 +26,7 @@
     "eslint-plugin-import": "^2.12.0"
   },
   "dependencies": {
+    "commander": "^2.20.0",
     "readline-sync": "^1.4.9"
   }
 }
