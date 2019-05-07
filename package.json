@@ -1,6 +1,6 @@
 {
   "name": "gendiff-15",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Second Hexlet Project",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -26,7 +26,6 @@
     "eslint-plugin-import": "^2.12.0"
   },
   "dependencies": {
-    "commander": "^2.20.0",
-    "readline-sync": "^1.4.9"
+    "commander": "^2.20.0"
   }
 }

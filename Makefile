@@ -6,3 +6,7 @@ publish:
 	npm publish
 lint:
 	npm run eslint .
+git:
+	git add .
+	git commit -m changes
+	git push
