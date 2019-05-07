@@ -10,3 +10,5 @@ git:
 	git add .
 	git commit -m changes
 	git push
+test:
+	npm test
