@@ -14,8 +14,8 @@ export default (firstConfig, secondConfig) => {
     const afterJSON = JSON.parse(secondJSON);
     const mergedKeys = _.union(_.keys(beforeJSON), _.keys(afterJSON));
     const differenceJSON = mergedKeys.reduce((acc, key) => {
-      const beforeJSONkeyValue = (key in beforeJSON) ? `- ${key}: ${beforeJSON[key]}\n` : '';
-      const afterJSONkeyValue = (key in afterJSON) ? `+ ${key}: ${afterJSON[key]}\n` : '';
+      const beforeJSONkeyValue = _.has(beforeJSON,key) ? `- ${key}: ${beforeJSON[key]}\n` : '';
+      const afterJSONkeyValue = _.has(afterJSON,key) ? `+ ${key}: ${afterJSON[key]}\n` : '';
       if (beforeJSON[key] === afterJSON[key]) return `${acc}  ${key}: ${beforeJSON[key]}\n`;
       return acc + beforeJSONkeyValue + afterJSONkeyValue;
     }, '');
