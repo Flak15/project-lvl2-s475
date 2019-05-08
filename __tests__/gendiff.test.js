@@ -1,6 +1,7 @@
-import fs from 'fs';
-import genDiff from '../dist';
 import _ from 'lodash';
+import fs from 'fs';
+import genDiff from '../dist/';
+
 
 const firstFilePath = '__tests__/__fixtures__/firstConf.json';
 const secondFilePath = '__tests__/__fixtures__/secondConf.json';
