@@ -1,6 +1,6 @@
 {
   "name": "gendiff-15",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Second Hexlet Project",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -11,7 +11,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "babel-node": "babel-node",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "eslint": "eslint",
