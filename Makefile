@@ -11,4 +11,5 @@ git:
 	git commit -m changes
 	git push
 test:
+	npm run build
 	npm test
