@@ -1,17 +1,8 @@
+import fs from 'fs';
 import genDiff from '..';
 
-const json1 = `{
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22",
-  "follow": false
-}`;
-
-const json2 = `{
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"
-}`;
+const json1 = fs.readFileSync('./__tests__/__fixtures__/firstConf.json');
+const json2 = fs.readFileSync('./__tests__/__fixtures__/secondConf.json');
 
 const result = `{
   host: hexlet.io

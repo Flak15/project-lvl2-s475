@@ -1,25 +1,25 @@
 import program from 'commander';
-//  import fs from 'fs';
+import fs from 'fs';
 import _ from 'lodash';
 
-export default (firstConfig, secondConfig) => {
+export default (firstFilePath, secondFilePath) => {
+  const firstJSON = JSON.parse(fs.readFileSync(firstFilePath));
+  const secondJSON = JSON.parse(fs.readFileSync(secondFilePath));
+  const mergedKeys = _.union(_.keys(firstJSON), _.keys(secondJSON));
+  const differenceJSON = mergedKeys.reduce((acc, key) => {
+    const firstJSONkeyValue = _.has(firstJSON, key) ? `- ${key}: ${firstJSON[key]}\n` : '';
+    const secondJSONkeyValue = _.has(secondJSON, key) ? `+ ${key}: ${secondJSON[key]}\n` : '';
+    if (firstJSON[key] === secondJSON[key]) return `${acc}  ${key}: ${firstJSON[key]}\n`;
+    return acc + firstJSONkeyValue + secondJSONkeyValue;
+  }, '');
+  return `{\n${differenceJSON}}`;
+};
+
+export const makeDescription = () => {
   program
     .description('Compare two configuration files and show a difference')
     .usage('[options] <firstConfig> <secondConfig>')
     .version('0.0.1')
     .option('-f, --format [type]', 'output format');
-
-  const generateJSONdifference = (firstJSON, secondJSON) => {
-    const beforeJSON = JSON.parse(firstJSON);
-    const afterJSON = JSON.parse(secondJSON);
-    const mergedKeys = _.union(_.keys(beforeJSON), _.keys(afterJSON));
-    const differenceJSON = mergedKeys.reduce((acc, key) => {
-      const beforeJSONkeyValue = _.has(beforeJSON, key) ? `- ${key}: ${beforeJSON[key]}\n` : '';
-      const afterJSONkeyValue = _.has(afterJSON, key) ? `+ ${key}: ${afterJSON[key]}\n` : '';
-      if (beforeJSON[key] === afterJSON[key]) return `${acc}  ${key}: ${beforeJSON[key]}\n`;
-      return acc + beforeJSONkeyValue + afterJSONkeyValue;
-    }, '');
-    return `{\n${differenceJSON}}`;
-  };
-  return generateJSONdifference(firstConfig, secondConfig);
+  return program;
 };

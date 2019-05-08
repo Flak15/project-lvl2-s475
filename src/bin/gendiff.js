@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+import genDiff, { makeDescription } from '..';
 
-import genDiff from '..';
 
-genDiff().parse(process.argv);
+makeDescription().parse(process.argv);
+const [firstFilePath, secondFilePath] = makeDescription().args;
+console.log(genDiff(firstFilePath, secondFilePath));

@@ -1,6 +1,6 @@
 {
   "name": "gendiff-15",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "Second Hexlet Project",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^24.8.0",
     "eslint": "^4.19.1",
@@ -30,7 +31,7 @@
     "jest": "^24.8.0"
   },
   "jest": {
-   "testEnvironment": "node"
+    "testEnvironment": "node"
   },
   "dependencies": {
     "@babel/preset-env": "^7.4.4",
