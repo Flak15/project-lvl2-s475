@@ -1,18 +1,22 @@
 import program from 'commander';
 import fs from 'fs';
 import _ from 'lodash';
+import path from 'path';
+import parse from './parsers';
 
 export default (firstFilePath, secondFilePath) => {
-  const firstJSON = JSON.parse(fs.readFileSync(firstFilePath));
-  const secondJSON = JSON.parse(fs.readFileSync(secondFilePath));
-  const mergedKeys = _.union(_.keys(firstJSON), _.keys(secondJSON));
-  const differenceJSON = mergedKeys.reduce((acc, key) => {
-    const firstJSONkeyValue = _.has(firstJSON, key) ? `- ${key}: ${firstJSON[key]}\n` : '';
-    const secondJSONkeyValue = _.has(secondJSON, key) ? `+ ${key}: ${secondJSON[key]}\n` : '';
-    if (firstJSON[key] === secondJSON[key]) return `${acc}  ${key}: ${firstJSON[key]}\n`;
-    return acc + firstJSONkeyValue + secondJSONkeyValue;
+  const firstFileExtension = path.extname(firstFilePath);
+  const secondFileExtension = path.extname(secondFilePath);
+  const firstDataObject = parse(fs.readFileSync(firstFilePath), firstFileExtension);
+  const secondDataObject = parse(fs.readFileSync(secondFilePath), secondFileExtension);
+  const mergedKeys = _.union(_.keys(firstDataObject), _.keys(secondDataObject));
+  const difference = mergedKeys.reduce((acc, key) => {
+    if (firstDataObject[key] === secondDataObject[key]) return `${acc}  ${key}: ${firstDataObject[key]}\n`;
+    const firstKeyValue = _.has(firstDataObject, key) ? `- ${key}: ${firstDataObject[key]}\n` : '';
+    const secondKeyValue = _.has(secondDataObject, key) ? `+ ${key}: ${secondDataObject[key]}\n` : '';
+    return acc + firstKeyValue + secondKeyValue;
   }, '');
-  return `{\n${differenceJSON}}`;
+  return `{\n${difference}}`;
 };
 
 export const makeDescription = () => {

@@ -1,6 +1,6 @@
 {
   "name": "gendiff-15",
-  "version": "1.0.25",
+  "version": "1.1.25",
   "description": "Second Hexlet Project",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.4.4",
     "commander": "^2.20.0",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.11"
   }
 }
