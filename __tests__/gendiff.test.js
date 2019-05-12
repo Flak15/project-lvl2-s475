@@ -7,6 +7,8 @@ const firstJSONPath = '__tests__/__fixtures__/firstConf.json';
 const secondJSONPath = '__tests__/__fixtures__/secondConf.json';
 const firstYAMLPath = '__tests__/__fixtures__/firstYAML.yml';
 const secondYAMLPath = '__tests__/__fixtures__/secondYAML.yaml';
+const firstINIPath = '__tests__/__fixtures__/firstINI.ini';
+const secondINIPath = '__tests__/__fixtures__/secondINI.ini';
 const result = _.trim(fs.readFileSync('__tests__/__fixtures__/result', 'utf-8'));
 
 test('JSON test', () => {
@@ -14,4 +16,7 @@ test('JSON test', () => {
 });
 test('YAML test', () => {
   expect(genDiff(firstYAMLPath, secondYAMLPath)).toBe(result);
+});
+test('INI test', () => {
+  expect(genDiff(firstINIPath, secondINIPath)).toBe(result);
 });

@@ -7,8 +7,8 @@ import parse from './parsers';
 export default (firstFilePath, secondFilePath) => {
   const firstFileExtension = path.extname(firstFilePath);
   const secondFileExtension = path.extname(secondFilePath);
-  const firstDataObject = parse(fs.readFileSync(firstFilePath), firstFileExtension);
-  const secondDataObject = parse(fs.readFileSync(secondFilePath), secondFileExtension);
+  const firstDataObject = parse(fs.readFileSync(firstFilePath, 'utf-8'), firstFileExtension);
+  const secondDataObject = parse(fs.readFileSync(secondFilePath, 'utf-8'), secondFileExtension);
   const mergedKeys = _.union(_.keys(firstDataObject), _.keys(secondDataObject));
   const difference = mergedKeys.reduce((acc, key) => {
     if (firstDataObject[key] === secondDataObject[key]) return `${acc}  ${key}: ${firstDataObject[key]}\n`;
