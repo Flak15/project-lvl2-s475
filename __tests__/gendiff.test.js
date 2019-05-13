@@ -1,18 +1,12 @@
 import fs from 'fs';
 import genDiff from '..';
 
-const json1 = fs.readFileSync('./__tests__/__fixtures__/firstConf.json');
-const json2 = fs.readFileSync('./__tests__/__fixtures__/secondConf.json');
-
-const result = `{
-  host: hexlet.io
-- timeout: 50
-+ timeout: 20
-- proxy: 123.234.53.22
-- follow: false
-+ verbose: true
-}`;
-
+const firstFilePath = '__tests__/__fixtures__/firstConf.json';
+const secondFilePath = '__tests__/__fixtures__/secondConf.json';
+const result = fs.readFileSync('__tests__/__fixtures__/result1', 'utf-8');
+const answ = genDiff(firstFilePath, secondFilePath);
+console.log(answ);
+console.log(result);
 test('genDiff test 1', () => {
-  expect(genDiff(json1, json2)).toBe(result);
+  expect(answ).toBe(result);
 });
