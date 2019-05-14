@@ -1,0 +1,10 @@
+---
+timeout: 20
+verbose: true
+host: hexlet.io
+array:
+- 10
+- 20
+- 30
+- 40
+- aaa

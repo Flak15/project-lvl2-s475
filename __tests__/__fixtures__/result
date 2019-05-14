@@ -5,4 +5,11 @@
 - proxy: 123.234.53.22
 - follow: false
 + verbose: true
++ array: [
+	10,
+	20,
+	30,
+	40,
+	aaa
+  ]
 }

@@ -1,18 +1,17 @@
 import program from 'commander';
 import fs from 'fs';
-import _ from 'lodash';
+import path from 'path';
+import parse from './parsers';
+import genDifferenceAst from './genDiffAst'; // (object, object)
+import render from './render'; // (AST)
 
 export default (firstFilePath, secondFilePath) => {
-  const firstJSON = JSON.parse(fs.readFileSync(firstFilePath));
-  const secondJSON = JSON.parse(fs.readFileSync(secondFilePath));
-  const mergedKeys = _.union(_.keys(firstJSON), _.keys(secondJSON));
-  const differenceJSON = mergedKeys.reduce((acc, key) => {
-    const firstJSONkeyValue = _.has(firstJSON, key) ? `- ${key}: ${firstJSON[key]}\n` : '';
-    const secondJSONkeyValue = _.has(secondJSON, key) ? `+ ${key}: ${secondJSON[key]}\n` : '';
-    if (firstJSON[key] === secondJSON[key]) return `${acc}  ${key}: ${firstJSON[key]}\n`;
-    return acc + firstJSONkeyValue + secondJSONkeyValue;
-  }, '');
-  return `{\n${differenceJSON}}`;
+  const firstFileExtension = path.extname(firstFilePath);
+  const secondFileExtension = path.extname(secondFilePath);
+  const firstDataObject = parse(fs.readFileSync(firstFilePath, 'utf-8'), firstFileExtension);
+  const secondDataObject = parse(fs.readFileSync(secondFilePath, 'utf-8'), secondFileExtension);
+  const differenceAst = genDifferenceAst(firstDataObject, secondDataObject);
+  return render(differenceAst);
 };
 
 export const makeDescription = () => {
