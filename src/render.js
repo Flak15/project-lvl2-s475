@@ -9,7 +9,7 @@ const render = (difference) => {
     if (diffNode.getMinusValue() === diffNode.getPlusValue()) {
       return [...result, `  ${diffNode.getKey()}: ${diffNode.getMinusValue()}`];
     }
-    const minusValue = _.isObject(diffNode.getMinusValue()) ? stringify(diffNode.getMinusValue()) : diffNode.getMinusValue();
+    const minusValue = diffNode.hasMinusValue() ? stringify(diffNode.getMinusValue()) : '';
     const plusValue = _.isObject(diffNode.getPlusValue()) ? stringify(diffNode.getPlusValue()) : diffNode.getPlusValue();
     const minusString = diffNode.hasMinusValue() ? `- ${diffNode.getKey()}: ${minusValue}` : '';
     const plusString = diffNode.hasPlusValue() ? `+ ${diffNode.getKey()}: ${plusValue}` : '';
