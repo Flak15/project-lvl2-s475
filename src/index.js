@@ -3,14 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
 import genDifferenceAst from './genDiffAst'; // (object, object)
-import treeRender from './render'; // (AST)
-import plainRender from './plainFormatRender';
+import treeFormatRender from './formatters/treeFormatter'; // (AST)
+import plainFormatRender from './formatters/plainFormatter';
 
 const render = (ast, format) => {
   if (format === 'plain') {
-    return plainRender(ast);
+    return plainFormatRender(ast);
   }
-  return treeRender(ast);
+  return treeFormatRender(ast);
 };
 
 export default (firstFilePath, secondFilePath, format) => {

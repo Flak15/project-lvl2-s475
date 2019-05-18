@@ -4,6 +4,7 @@ import genDiff from '..';
 
 const result = _.trim(fs.readFileSync('__tests__/__fixtures__/result', 'utf-8'));
 const deepDiffResult = _.trim(fs.readFileSync('__tests__/__fixtures__/deepResult', 'utf-8'));
+const plainFormatResult = _.trim(fs.readFileSync('__tests__/__fixtures__/plainFormatResult', 'utf-8'));
 test('JSON test', () => {
   expect(genDiff('__tests__/__fixtures__/firstConf.json', '__tests__/__fixtures__/secondConf.json')).toBe(result);
 });
@@ -15,4 +16,7 @@ test('INI test', () => {
 });
 test('Deep differense JSON test', () => {
   expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json')).toBe(deepDiffResult);
+});
+test('Plain format test', () => {
+  expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json', 'plain')).toBe(plainFormatResult);
 });
