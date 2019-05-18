@@ -3,15 +3,23 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
 import genDifferenceAst from './genDiffAst'; // (object, object)
-import render from './render'; // (AST)
+import treeRender from './render'; // (AST)
+import plainRender from './plainFormatRender';
 
-export default (firstFilePath, secondFilePath) => {
+const render = (ast, format) => {
+  if (format === 'plain') {
+    return plainRender(ast);
+  }
+  return treeRender(ast);
+};
+
+export default (firstFilePath, secondFilePath, format) => {
   const firstFileExtension = path.extname(firstFilePath);
   const secondFileExtension = path.extname(secondFilePath);
   const firstDataObject = parse(fs.readFileSync(firstFilePath, 'utf-8'), firstFileExtension);
   const secondDataObject = parse(fs.readFileSync(secondFilePath, 'utf-8'), secondFileExtension);
   const differenceAst = genDifferenceAst(firstDataObject, secondDataObject);
-  return render(differenceAst);
+  return render(differenceAst, format);
 };
 
 export const makeDescription = () => {
