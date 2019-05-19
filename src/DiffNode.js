@@ -8,6 +8,10 @@ class DiffNode {
   getKey() {
     return this.key;
   }
+  setKey(newKey) {
+    this.key = newKey;
+    return this;
+  }
   getMinusValue() {
     return this.minusValue;
   }

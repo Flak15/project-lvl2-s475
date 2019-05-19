@@ -8,8 +8,8 @@ lint:
 	npm run eslint .
 git:
 	git add .
-	git commit -m changes
-	git push
+	git commit -m sync
+	git push gendiff master
 test:
 	npm run build
 	npm test
