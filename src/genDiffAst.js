@@ -3,7 +3,7 @@ import DiffNode from './DiffNode';
 
 const genDifferenceAst = (firstDataObject, secondDataObject) => {
   const mergedKeys = _.union(_.keys(firstDataObject), _.keys(secondDataObject));
-  const difference = mergedKeys.map(key => {
+  const difference = mergedKeys.map((key) => {
     const firstValue = firstDataObject[key];
     const secondValue = secondDataObject[key];
     const diffNode = new DiffNode(key);
@@ -12,13 +12,14 @@ const genDifferenceAst = (firstDataObject, secondDataObject) => {
       return diffNode;
     }
     if (_.has(firstDataObject, key)) {
-      diffNode.setMinusValue(firstValue);
+      diffNode.setInitialValue(firstValue);
     }
     if (_.has(secondDataObject, key)) {
-      diffNode.setPlusValue(secondValue);
+      diffNode.setFinalValue(secondValue);
     }
     return diffNode;
   }, '');
   return difference;
 };
+
 export default genDifferenceAst;

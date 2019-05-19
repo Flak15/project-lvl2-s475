@@ -17,20 +17,16 @@ const renderInPlainFormat = (differenceAst) => {
       children.map(childDiffNode => childDiffNode.setKey(`${diffNode.getKey()}.${childDiffNode.getKey()}`));
       return renderInPlainFormat(children);
     }
-    if (diffNode.getMinusValue() === diffNode.getPlusValue()) {
-      return;
+    if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
+      return '';
     }
-    if (!diffNode.hasMinusValue()) {
-      const minusString = `Property '${diffNode.getKey()}' added with value: ${plainStringify(diffNode.getPlusValue())}`;
-      return minusString;
+    if (!diffNode.hasInitialValue()) {
+      return `Property '${diffNode.getKey()}' added with value: ${plainStringify(diffNode.getFinalValue())}`;
     }
-    if (!diffNode.hasPlusValue()) {
-      const plusString = `Property '${diffNode.getKey()}' was removed`;
-      return plusString;
+    if (!diffNode.hasFinalValue()) {
+      return `Property '${diffNode.getKey()}' was removed`;
     }
-
-    const str = `Property '${diffNode.getKey()}' was updated. From ${plainStringify(diffNode.getMinusValue())} to ${plainStringify(diffNode.getPlusValue())}`;
-    return str;
+    return `Property '${diffNode.getKey()}' was updated. From ${plainStringify(diffNode.getInitialValue())} to ${plainStringify(diffNode.getFinalValue())}`;
   });
   return _.compact(result).join('\n');
 };

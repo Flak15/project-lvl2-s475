@@ -12,23 +12,23 @@ class DiffNode {
     this.key = newKey;
     return this;
   }
-  getMinusValue() {
-    return this.minusValue;
+  getInitialValue() {
+    return this.initialValue;
   }
-  getPlusValue() {
-    return this.plusValue;
+  getFinalValue() {
+    return this.finalValue;
   }
-  setMinusValue(value) {
-    this.minusValue = value;
+  setInitialValue(value) {
+    this.initialValue = value;
   }
-  setPlusValue(value) {
-    this.plusValue = value;
+  setFinalValue(value) {
+    this.finalValue = value;
   }
-  hasMinusValue() {
-    return _.has(this, 'minusValue');
+  hasInitialValue() {
+    return _.has(this, 'initialValue');
   }
-  hasPlusValue() {
-    return _.has(this, 'plusValue');
+  hasFinalValue() {
+    return _.has(this, 'finalValue');
   }
   addChild(child) {
     this.children = [...this.children, ...child];

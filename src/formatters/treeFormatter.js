@@ -22,13 +22,13 @@ const render = (differenceAst) => {
       return [...acc, `  ${diffNode.getKey()}: ${render(children).split('\n').slice(0, -1).join('\n    ')}
     }`];
     }
-    if (diffNode.getMinusValue() === diffNode.getPlusValue()) {
-      return [...acc, `  ${diffNode.getKey()}: ${diffNode.getMinusValue()}`];
+    if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
+      return [...acc, `  ${diffNode.getKey()}: ${diffNode.getInitialValue()}`];
     }
-    const minusValue = stringify(diffNode.getMinusValue());
-    const plusValue = stringify(diffNode.getPlusValue());
-    const minusString = diffNode.hasMinusValue() ? `- ${diffNode.getKey()}: ${minusValue}` : '';
-    const plusString = diffNode.hasPlusValue() ? `+ ${diffNode.getKey()}: ${plusValue}` : '';
+    const initialValueString = stringify(diffNode.getInitialValue());
+    const finalValueString = stringify(diffNode.getFinalValue());
+    const minusString = diffNode.hasInitialValue() ? `- ${diffNode.getKey()}: ${initialValueString}` : '';
+    const plusString = diffNode.hasFinalValue() ? `+ ${diffNode.getKey()}: ${finalValueString}` : '';
     return [...acc, minusString, plusString];
   }, []);
   return `{
