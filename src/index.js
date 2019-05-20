@@ -5,10 +5,14 @@ import parse from './parsers';
 import genDifferenceAst from './genDiffAst'; // (object, object)
 import treeFormatRender from './formatters/treeFormatter'; // (AST)
 import plainFormatRender from './formatters/plainFormatter';
+import jsonFormatRender from './formatters/jsonFormatter';
 
 const render = (ast, format) => {
   if (format === 'plain') {
     return plainFormatRender(ast);
+  }
+  if (format === 'json') {
+    return jsonFormatRender(ast);
   }
   return treeFormatRender(ast);
 };
