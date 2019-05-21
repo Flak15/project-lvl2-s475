@@ -6,22 +6,21 @@ const renderInJsonFormat = (differenceAst) => {
     diff.prop = diffNode.getKey();
     if (diffNode.hasChildren()) {
       const children = diffNode.getChildren();
-      diff.innerJSON = renderInPlainFormat(children);
-      return;
+      diff.innerJsonDiff = renderInJsonFormat(children);
+      return diff;
     }
     if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
       return;
     }
-    if (!diffNode.hasInitialValue()) {
-      return `Property '${diffNode.getKey()}' added with value: ${plainStringify(diffNode.getFinalValue())}`;
+    if (diffNode.hasInitialValue()) {
+      diff.initValue = diffNode.getInitialValue();
     }
-    if (!diffNode.hasFinalValue()) {
-      return `Property '${diffNode.getKey()}' was removed`;
+    if (diffNode.hasFinalValue()) {
+      diff.finalValue = diffNode.getFinalValue();
     }
-    return `Property '${diffNode.getKey()}' was updated. From ${plainStringify(diffNode.getInitialValue())} to ${plainStringify(diffNode.getFinalValue())}`;
     return diff;
   });
-  return _.compact(result).join('\n');
+  return _.compact(result);
 };
 
-export default renderInPlainFormat;
+export default ast => JSON.stringify(renderInJsonFormat(ast));
