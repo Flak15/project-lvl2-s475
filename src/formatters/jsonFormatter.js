@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const renderInJsonFormat = (differenceAst) => {
-  const result = differenceAst.map((diffNode) => {
+  const diffs = differenceAst.map((diffNode) => {
     const diff = {};
     diff.prop = diffNode.getKey();
     if (diffNode.hasChildren()) {
@@ -20,7 +20,7 @@ const renderInJsonFormat = (differenceAst) => {
     }
     return diff;
   });
-  return _.compact(result);
+  return _.compact(diffs);
 };
 
 export default ast => JSON.stringify(renderInJsonFormat(ast));
