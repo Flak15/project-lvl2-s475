@@ -10,7 +10,7 @@ const renderInJsonFormat = (differenceAst) => {
       return diff;
     }
     if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
-      return;
+      return '';
     }
     if (diffNode.hasInitialValue()) {
       diff.initValue = diffNode.getInitialValue();
