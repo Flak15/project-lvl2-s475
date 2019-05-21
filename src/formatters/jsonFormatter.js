@@ -2,20 +2,18 @@ import _ from 'lodash';
 
 const renderInJsonFormat = (differenceAst) => {
   const diffs = differenceAst.map((diffNode) => {
-    const diff = {};
-    diff.prop = diffNode.getKey();
-    if (diffNode.hasChildren()) {
-      const children = diffNode.getChildren();
-      diff.innerJsonDiff = renderInJsonFormat(children);
-      return diff;
+
+    if (diffNode.type === 'nested') {
+      return { property: diffNode.property, innerJsonDiff: renderInJsonFormat(diffNode.children)};
     }
+
     if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
       return '';
     }
-    if (diffNode.hasInitialValue()) {
-      diff.initValue = diffNode.getInitialValue();
+    if (diffNode.type === 'added') {
+      return { property: diffNode.property };
     }
-    if (diffNode.hasFinalValue()) {
+    if (diffNode.type === 'removed') {
       diff.finalValue = diffNode.getFinalValue();
     }
     return diff;

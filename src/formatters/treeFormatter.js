@@ -17,19 +17,22 @@ const stringify = (value) => {
 
 const render = (differenceAst) => {
   const result = differenceAst.reduce((acc, diffNode) => {
-    if (diffNode.hasChildren()) {
-      const children = diffNode.getChildren();
-      return [...acc, `  ${diffNode.getKey()}: ${render(children).split('\n').slice(0, -1).join('\n    ')}
+    if (diffNode.type === 'nested') {
+      return [...acc, `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}
     }`];
     }
-    if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
-      return [...acc, `  ${diffNode.getKey()}: ${diffNode.getInitialValue()}`];
+    if (diffNode.type === 'unchanged') {
+      return [...acc, `  ${diffNode.property}: ${stringify(diffNode.initialValue)}`];
     }
-    const initialValueString = stringify(diffNode.getInitialValue());
-    const finalValueString = stringify(diffNode.getFinalValue());
-    const minusString = diffNode.hasInitialValue() ? `- ${diffNode.getKey()}: ${initialValueString}` : '';
-    const plusString = diffNode.hasFinalValue() ? `+ ${diffNode.getKey()}: ${finalValueString}` : '';
-    return [...acc, minusString, plusString];
+    if (diffNode.type === 'changed') {
+      return [...acc, `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
+    }
+    if (diffNode.type === 'removed') {
+      return [...acc, `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`];
+    }
+    if (diffNode.type === 'added') {
+      return [...acc, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
+    }
   }, []);
   return `{
   ${_.compact(result).join('\n  ')}
