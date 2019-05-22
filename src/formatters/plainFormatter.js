@@ -16,9 +16,6 @@ const renderInPlainFormat = (differenceAst) => {
       const children = diffNode.children.map(child => _.assign({}, child, { property: `${diffNode.property}.${child.property}` }));
       return renderInPlainFormat(children);
     }
-    if (diffNode.type === 'unchanged') {
-      return '';
-    }
     if (diffNode.type === 'added') {
       return `Property '${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`;
     }
@@ -28,6 +25,7 @@ const renderInPlainFormat = (differenceAst) => {
     if (diffNode.type === 'changed') {
       return `Property '${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`;
     }
+    return '';
   });
   return _.compact(result).join('\n');
 };

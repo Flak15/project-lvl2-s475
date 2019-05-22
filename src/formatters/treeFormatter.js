@@ -33,6 +33,7 @@ const render = (differenceAst) => {
     if (diffNode.type === 'added') {
       return [...acc, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
     }
+    return [];
   }, []);
   return `{
   ${_.compact(result).join('\n  ')}
