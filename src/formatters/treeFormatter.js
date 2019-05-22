@@ -18,7 +18,7 @@ const stringify = (value) => {
 const render = (differenceAst) => {
   const renderProcessor = {
     nested: diffNode => `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}
-      }`,
+    }`,
     unchanged: diffNode => `  ${diffNode.property}: ${stringify(diffNode.initialValue)}`,
     changed: diffNode => [`- ${diffNode.property}: ${stringify(diffNode.initialValue)}`, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`],
     removed: diffNode => `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`,
