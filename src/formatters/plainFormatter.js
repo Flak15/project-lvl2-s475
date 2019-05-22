@@ -12,21 +12,22 @@ const plainStringify = (value) => {
 
 const renderInPlainFormat = (differenceAst) => {
   const result = differenceAst.map((diffNode) => {
-    if (diffNode.hasChildren()) {
-      const children = diffNode.getChildren();
-      children.map(childDiffNode => childDiffNode.setKey(`${diffNode.getKey()}.${childDiffNode.getKey()}`));
+    if (diffNode.type === 'nested') {
+      const children = diffNode.children.map(child => _.assign({}, child, { property: `${diffNode.property}.${child.property}` }));
       return renderInPlainFormat(children);
     }
-    if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
+    if (diffNode.type === 'unchanged') {
       return '';
     }
-    if (!diffNode.hasInitialValue()) {
-      return `Property '${diffNode.getKey()}' added with value: ${plainStringify(diffNode.getFinalValue())}`;
+    if (diffNode.type === 'added') {
+      return `Property '${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`;
     }
-    if (!diffNode.hasFinalValue()) {
-      return `Property '${diffNode.getKey()}' was removed`;
+    if (diffNode.type === 'removed') {
+      return `Property '${diffNode.property}' was removed`;
     }
-    return `Property '${diffNode.getKey()}' was updated. From ${plainStringify(diffNode.getInitialValue())} to ${plainStringify(diffNode.getFinalValue())}`;
+    if (diffNode.type === 'changed') {
+      return `Property '${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`;
+    }
   });
   return _.compact(result).join('\n');
 };

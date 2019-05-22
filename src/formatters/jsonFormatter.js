@@ -4,19 +4,21 @@ const renderInJsonFormat = (differenceAst) => {
   const diffs = differenceAst.map((diffNode) => {
 
     if (diffNode.type === 'nested') {
-      return { property: diffNode.property, innerJsonDiff: renderInJsonFormat(diffNode.children)};
+      return { prop: diffNode.property, innerJsonDiff: renderInJsonFormat(diffNode.children)};
     }
 
-    if (diffNode.getInitialValue() === diffNode.getFinalValue()) {
+    if (diffNode.type === 'unchanged') {
       return '';
     }
     if (diffNode.type === 'added') {
-      return { property: diffNode.property };
+      return { prop: diffNode.property, finalValue: diffNode.finalValue, finalValue: diffNode.finalValue};
     }
     if (diffNode.type === 'removed') {
-      diff.finalValue = diffNode.getFinalValue();
+      return { prop: diffNode.property, initialValue: diffNode.initialValue };
     }
-    return diff;
+    if (diffNode.type === 'changed') {
+      return { prop: diffNode.property, initialValue: diffNode.initialValue, finalValue: diffNode.finalValue };
+    }
   });
   return _.compact(diffs);
 };
