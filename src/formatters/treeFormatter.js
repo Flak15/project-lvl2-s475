@@ -16,27 +16,27 @@ const stringify = (value) => {
 };
 
 const render = (differenceAst) => {
-  const result = differenceAst.reduce((acc, diffNode) => {
+  const result = differenceAst.map((acc, diffNode) => {
     if (diffNode.type === 'nested') {
-      return [...acc, `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}
-    }`];
+      return `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}
+    }`;
     }
     if (diffNode.type === 'unchanged') {
-      return [...acc, `  ${diffNode.property}: ${stringify(diffNode.initialValue)}`];
+      return `  ${diffNode.property}: ${stringify(diffNode.initialValue)}`;
     }
     if (diffNode.type === 'changed') {
-      return [...acc, `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
+      return [`- ${diffNode.property}: ${stringify(diffNode.initialValue)}`, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
     }
     if (diffNode.type === 'removed') {
-      return [...acc, `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`];
+      return `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`;
     }
     if (diffNode.type === 'added') {
-      return [...acc, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`];
+      return `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`;
     }
     return [];
-  }, []);
+  });
   return `{
-  ${_.compact(result).join('\n  ')}
+  ${_.compact(_.flatten(result)).join('\n  ')}
 }`;
 };
 export default render;
