@@ -14,10 +14,10 @@ const renderInJsonFormat = (differenceAst) => {
       return { prop: diffNode.property, finalValue: diffNode.finalValue, finalValue: diffNode.finalValue};
     }
     if (diffNode.type === 'removed') {
-      return { prop: diffNode.property, initialValue: diffNode.initialValue };
+      return { prop: diffNode.property, initValue: diffNode.initialValue };
     }
     if (diffNode.type === 'changed') {
-      return { prop: diffNode.property, initialValue: diffNode.initialValue, finalValue: diffNode.finalValue };
+      return { prop: diffNode.property, initValue: diffNode.initialValue, finalValue: diffNode.finalValue };
     }
   });
   return _.compact(diffs);
