@@ -16,7 +16,7 @@ const stringify = (value) => {
 };
 
 const render = (differenceAst) => {
-  const result = differenceAst.map((acc, diffNode) => {
+  const result = differenceAst.map((diffNode) => {
     if (diffNode.type === 'nested') {
       return `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}
     }`;
