@@ -22,5 +22,5 @@ test('Plain format test', () => {
   expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json', 'plain')).toBe(plainFormatResult);
 });
 test('JSON format test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json', 'json')).toBe(jsonFormatResult);
+  expect(genDiff('__tests__/__fixtures__/firstConf.json', '__tests__/__fixtures__/secondConf.json', 'json')).toBe(jsonFormatResult);
 });
