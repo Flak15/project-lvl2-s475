@@ -16,7 +16,7 @@ const nodeGenerator = {
       finalValue,
     }
   },
-  unchanged(key, initialValue) {
+  unchanged(key, initialValue, finalValue) {
     return {
       property: key,
       type: 'unchanged',
