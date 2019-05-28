@@ -11,22 +11,17 @@ const plainStringify = (value) => {
 };
 
 const renderInPlainFormat = (differenceAst) => {
-  const result = differenceAst.map((diffNode) => {
-    if (diffNode.type === 'nested') {
+  const renderProcessor = {
+    nested: (diffNode) => {
       const children = diffNode.children.map(child => _.assign({}, child, { property: `${diffNode.property}.${child.property}` }));
       return renderInPlainFormat(children);
-    }
-    if (diffNode.type === 'added') {
-      return `Property '${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`;
-    }
-    if (diffNode.type === 'removed') {
-      return `Property '${diffNode.property}' was removed`;
-    }
-    if (diffNode.type === 'changed') {
-      return `Property '${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`;
-    }
-    return '';
-  });
+    },
+    added: diffNode => `Property '${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`,
+    removed: diffNode => `Property '${diffNode.property}' was removed`,
+    changed: diffNode => `Property '${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`,
+    unchanged: () => '',
+  };
+  const result = differenceAst.map(diffNode => renderProcessor[diffNode.type](diffNode));
   return _.compact(result).join('\n');
 };
 
