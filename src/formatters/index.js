@@ -1,6 +1,5 @@
 import treeFormatRender from './treeFormatter';
 import plainFormatRender from './plainFormatter';
-import jsonFormatRender from './jsonFormatter';
 
 export default (ast, format) => {
   if (format === 'plain') {
