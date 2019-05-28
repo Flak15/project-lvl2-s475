@@ -13,8 +13,8 @@ const plainStringify = (value) => {
 const renderInPlainFormat = (differenceAst) => {
   const renderProcessor = {
     nested: (diffNode) => {
-      const children = diffNode.children.map(child => {
-        const childWithPath = { ...child,  property: `${diffNode.property}.${child.property}` };
+      const children = diffNode.children.map((child) => {
+        const childWithPath = { ...child, property: `${diffNode.property}.${child.property}` };
         return childWithPath;
       });
       return renderInPlainFormat(children);

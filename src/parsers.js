@@ -5,7 +5,7 @@ const parsersSwitch = {
   json: data => JSON.parse(data),
   yaml: data => yaml.safeLoad(data),
   ini: data => ini.parse(data),
-}
+};
 
 export default (data, extension) => {
   if (extension === '.json') {
