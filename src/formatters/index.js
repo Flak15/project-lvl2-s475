@@ -7,7 +7,7 @@ export default (ast, format) => {
     return plainFormatRender(ast);
   }
   if (format === 'json') {
-    return jsonFormatRender(ast);
+    return JSON.stringify(ast);
   }
   return treeFormatRender(ast);
 };
