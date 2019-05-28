@@ -1,21 +1,8 @@
-import program from 'commander';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
-import genDifferenceAst from './genDiffAst'; // (object, object)
-import treeFormatRender from './formatters/treeFormatter'; // (AST)
-import plainFormatRender from './formatters/plainFormatter';
-import jsonFormatRender from './formatters/jsonFormatter';
-
-const render = (ast, format) => {
-  if (format === 'plain') {
-    return plainFormatRender(ast);
-  }
-  if (format === 'json') {
-    return jsonFormatRender(ast);
-  }
-  return treeFormatRender(ast);
-};
+import genDifferenceAst from './genDiffAst';
+import render from './formatters/';
 
 export default (firstFilePath, secondFilePath, format) => {
   const firstFileExtension = path.extname(firstFilePath);
@@ -24,13 +11,4 @@ export default (firstFilePath, secondFilePath, format) => {
   const secondDataObject = parse(fs.readFileSync(secondFilePath, 'utf-8'), secondFileExtension);
   const differenceAst = genDifferenceAst(firstDataObject, secondDataObject);
   return render(differenceAst, format);
-};
-
-export const makeDescription = () => {
-  program
-    .description('Compare two configuration files and show a difference')
-    .usage('[options] <firstConfig> <secondConfig>')
-    .version('0.0.1')
-    .option('-f, --format [type]', 'output format');
-  return program;
 };

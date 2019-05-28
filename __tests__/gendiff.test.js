@@ -1,29 +1,34 @@
 import _ from 'lodash';
 import fs from 'fs';
+import path from 'path';
 import genDiff from '..';
 import path from 'path';
 
-const fixuturesPath = path.join(__dirname, '__fixtures__');
-console.log(fixuturesPath);
-const result = _.trim(fs.readFileSync('__tests__/__fixtures__/result', 'utf-8'));
-const deepDiffResult = _.trim(fs.readFileSync('__tests__/__fixtures__/deepResult', 'utf-8'));
-const plainFormatResult = _.trim(fs.readFileSync('__tests__/__fixtures__/plainFormatResult', 'utf-8'));
-const jsonFormatResult = _.trim(fs.readFileSync('__tests__/__fixtures__/jsonFormatResult', 'utf-8'));
+const getFullFilePath = name => path.join(__dirname, '__fixtures__', name);
+
+const getResultStringFromFile = fileName => _.trim(fs.readFileSync(getFullFilePath(fileName), 'utf-8'));
+
 test('JSON test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstConf.json', '__tests__/__fixtures__/secondConf.json')).toBe(result);
+  const result = getResultStringFromFile('result');
+  expect(genDiff(getFullFilePath('firstConf.json'), getFullFilePath('secondConf.json'))).toBe(result);
 });
 test('YAML test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstYAML.yml', '__tests__/__fixtures__/secondYAML.yaml')).toBe(result);
+  const result = getResultStringFromFile('result');
+  expect(genDiff(getFullFilePath('firstYAML.yml'), getFullFilePath('secondYAML.yaml'))).toBe(result);
 });
 test('INI test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstINI.ini', '__tests__/__fixtures__/secondINI.ini')).toBe(result);
+  const result = getResultStringFromFile('result');
+  expect(genDiff(getFullFilePath('firstINI.ini'), getFullFilePath('secondINI.ini'))).toBe(result);
 });
 test('Deep differense JSON test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json')).toBe(deepDiffResult);
+  const deepDiffResult = getResultStringFromFile('deepResult');
+  expect(genDiff(getFullFilePath('firstDeepJson.json'), getFullFilePath('secondDeepJson.json'))).toBe(deepDiffResult);
 });
 test('Plain format test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json', 'plain')).toBe(plainFormatResult);
+  const plainFormatResult = getResultStringFromFile('plainFormatResult');
+  expect(genDiff(getFullFilePath('firstDeepJson.json'), getFullFilePath('secondDeepJson.json'), 'plain')).toBe(plainFormatResult);
 });
 test('JSON format test', () => {
-  expect(genDiff('__tests__/__fixtures__/firstDeepJson.json', '__tests__/__fixtures__/secondDeepJson.json', 'json')).toBe(jsonFormatResult);
+  const jsonFormatResult = getResultStringFromFile('jsonFormatResult');
+  expect(genDiff(getFullFilePath('firstDeepJson.json'), getFullFilePath('secondDeepJson.json'), 'json')).toBe(jsonFormatResult);
 });
