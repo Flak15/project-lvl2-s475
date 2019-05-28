@@ -2,20 +2,8 @@ import program from 'commander';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
-import genDifferenceAst from './genDiffAst'; // (object, object)
-import treeFormatRender from './formatters/treeFormatter'; // (AST)
-import plainFormatRender from './formatters/plainFormatter';
-import jsonFormatRender from './formatters/jsonFormatter';
-
-const render = (ast, format) => {
-  if (format === 'plain') {
-    return plainFormatRender(ast);
-  }
-  if (format === 'json') {
-    return jsonFormatRender(ast);
-  }
-  return treeFormatRender(ast);
-};
+import genDifferenceAst from './genDiffAst';
+import render from './formatters/';
 
 export default (firstFilePath, secondFilePath, format) => {
   const firstFileExtension = path.extname(firstFilePath);
