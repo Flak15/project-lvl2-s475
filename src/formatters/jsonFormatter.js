@@ -13,7 +13,7 @@ const renderInJsonFormat = (differenceAst) => {
       initValue: diffNode.initialValue,
       finalValue: diffNode.finalValue,
     }),
-    unchanged: () => '',
+    unchanged: () => null,
   };
   const diffs = differenceAst.map(diffNode => renderProcessor[diffNode.type](diffNode));
   return _.compact(diffs);
