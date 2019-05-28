@@ -1,4 +1,3 @@
-import program from 'commander';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
@@ -12,13 +11,4 @@ export default (firstFilePath, secondFilePath, format) => {
   const secondDataObject = parse(fs.readFileSync(secondFilePath, 'utf-8'), secondFileExtension);
   const differenceAst = genDifferenceAst(firstDataObject, secondDataObject);
   return render(differenceAst, format);
-};
-
-export const makeDescription = () => {
-  program
-    .description('Compare two configuration files and show a difference')
-    .usage('[options] <firstConfig> <secondConfig>')
-    .version('0.0.1')
-    .option('-f, --format [type]', 'output format');
-  return program;
 };

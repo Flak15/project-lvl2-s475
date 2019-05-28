@@ -3,7 +3,6 @@ import _ from 'lodash';
 const genDifferenceAst = (firstDataObject, secondDataObject) => {
   const mergedKeys = _.union(_.keys(firstDataObject), _.keys(secondDataObject));
 
-
   const nodeGenerator = {
     nested(key, initialValue, finalValue) {
       return {

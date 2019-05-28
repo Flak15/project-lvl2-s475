@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import genDiff, { makeDescription } from '..';
-
+import genDiff from '..';
+import makeDescription from '../optionsParse';
 
 makeDescription().parse(process.argv);
 const [firstFilePath, secondFilePath] = makeDescription().args;
