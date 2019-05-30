@@ -8,9 +8,7 @@ const stringify = (value) => {
   }
   if (_.isPlainObject(value)) {
     const objectString = `${Object.keys(value).map(key => `  ${key}: ${stringify(value[key])}\n`).join('  ')}`;
-    return `{
-      ${objectString.split('\n').slice(0, -1).join('\n    ')}
-    }`;
+    return `{\n      ${objectString.split('\n').join('\n    ')}}`;
   }
   return value;
 };
