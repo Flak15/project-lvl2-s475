@@ -27,5 +27,4 @@ const render = (differenceAst) => {
   return `\n  ${_.compact(_.flatten(result)).join('\n  ')}`;
 };
 
-const render2 = ast => `{${render(ast)}\n}`;
-export default render2;
+export default ast => `{${render(ast)}\n}`;
