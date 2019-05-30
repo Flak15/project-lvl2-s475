@@ -9,4 +9,3 @@ const parsersSwitch = {
 };
 
 export default (data, extension) => parsersSwitch[extension.slice(1)](data);
-};
