@@ -10,18 +10,12 @@ const plainStringify = (value) => {
   return value;
 };
 
-const renderInPlainFormat = (differenceAst) => {
+const renderInPlainFormat = (differenceAst, path) => {
   const renderProcessor = {
-    nested: (diffNode) => {
-      const children = diffNode.children.map((child) => {
-        const childWithPath = { ...child, property: `${diffNode.property}.${child.property}` };
-        return childWithPath;
-      });
-      return renderInPlainFormat(children);
-    },
-    added: diffNode => `Property '${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`,
-    removed: diffNode => `Property '${diffNode.property}' was removed`,
-    changed: diffNode => `Property '${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`,
+    nested: diffNode => renderInPlainFormat(diffNode.children, (path ? `${path}.` : '') + diffNode.property),
+    added: diffNode => `Property '${path ? `${path}.` : ''}${diffNode.property}' added with value: ${plainStringify(diffNode.finalValue)}`,
+    removed: diffNode => `Property '${path ? `${path}.` : ''}${diffNode.property}' was removed`,
+    changed: diffNode => `Property '${path ? `${path}.` : ''}${diffNode.property}' was updated. From ${plainStringify(diffNode.initialValue)} to ${plainStringify(diffNode.finalValue)}`,
     unchanged: () => null,
   };
   const result = differenceAst.map(diffNode => renderProcessor[diffNode.type](diffNode));
