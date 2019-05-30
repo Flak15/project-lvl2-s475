@@ -17,14 +17,15 @@ const stringify = (value) => {
 
 const render = (differenceAst) => {
   const renderProcessor = {
-    nested: diffNode => `  ${diffNode.property}: ${render(diffNode.children).split('\n').slice(0, -1).join('\n    ')}\n    }`,
+    nested: diffNode => `  ${diffNode.property}: {${render(diffNode.children).split('\n').join('\n    ')}\n    }`,
     unchanged: diffNode => `  ${diffNode.property}: ${stringify(diffNode.initialValue)}`,
     changed: diffNode => [`- ${diffNode.property}: ${stringify(diffNode.initialValue)}`, `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`],
     removed: diffNode => `- ${diffNode.property}: ${stringify(diffNode.initialValue)}`,
     added: diffNode => `+ ${diffNode.property}: ${stringify(diffNode.finalValue)}`,
   };
   const result = differenceAst.map(diffNode => renderProcessor[diffNode.type](diffNode));
-  return `{\n  ${_.compact(_.flatten(result)).join('\n  ')}\n}`;
+  return `\n  ${_.compact(_.flatten(result)).join('\n  ')}`;
 };
 
-export default render;
+const render2 = ast => `{${render(ast)}\n}`;
+export default render2;
