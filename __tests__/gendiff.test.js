@@ -2,7 +2,6 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import genDiff from '..';
-import path from 'path';
 
 const getFullFilePath = name => path.join(__dirname, '__fixtures__', name);
 
