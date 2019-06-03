@@ -1,12 +1,10 @@
 import treeFormatRender from './treeFormatter';
 import plainFormatRender from './plainFormatter';
 
-export default (ast, format) => {
-  if (format === 'plain') {
-    return plainFormatRender(ast);
-  }
-  if (format === 'json') {
-    return JSON.stringify(ast);
-  }
-  return treeFormatRender(ast);
+const formatters = {
+  plain: plainFormatRender,
+  json: JSON.stringify,
+  tree: treeFormatRender,
 };
+
+export default (ast, format = 'tree') => formatters[format](ast);
