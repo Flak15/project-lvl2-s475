@@ -8,4 +8,4 @@ const parsersSwitch = {
   ini: ini.parse,
 };
 
-export default (data, extension) => parsersSwitch[extension.slice(1)](data);
+export default (data, dataType) => parsersSwitch[dataType.slice(1)](data);
