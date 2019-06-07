@@ -1,16 +1,16 @@
 import _ from 'lodash';
 
 const stringify = (value) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
   if (_.isArray(value)) {
     return `[
       ${value.join(',\n      ')}
     ]`;
   }
-  if (_.isPlainObject(value)) {
-    const objectString = `${Object.keys(value).map(key => `  ${key}: ${stringify(value[key])}\n`).join('  ')}`;
-    return `{\n      ${objectString.split('\n').join('\n    ')}}`;
-  }
-  return value;
+  const objectString = `${Object.keys(value).map(key => `  ${key}: ${stringify(value[key])}\n`).join('  ')}`;
+  return `{\n      ${objectString.split('\n').join('\n    ')}}`;
 };
 
 const render = (differenceAst) => {
